@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src='../js/react.development.js'></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="../js/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="../js/babel.min.js"></script>
+    <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+    <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        /* 
+        
+    1.初始化
+        触发条件：ReactDOM.render(<MyComponent/>)
+        --constructor()
+        --componentWillMount()
+        --render():提供虚拟DOM，可能会调用多次。
+        --componentDidMount()：启动定时器、发送Ajax请求、只执行一次。
+    2.更新
+        触发条件：this.setState({})
+        componentWillUdate()
+        render()
+        componentDidUpdate()
+    3.卸载:
+        触发条件：ReactDOM.unmountComponentAtNode()
+        componentWillUnmount()：收尾工作，例如：清除定时器，只执行一次。
+  */
+
+        class Life extends React.Component{
+            constructor(a) {
+                super(a);
+                console.log('--constructor--');
+            }
+
+            state = {
+                opacity: 1
+            }
+
+            // 重写从父类继承的componentDidMount
+            // 一般会在componentDidMount里：1. 开定时器 2. 发送ajax请求...
+            // 组件挂载
+            componentDidMount() {
+                console.log('-----componentDidMount-----');
+               /*  this.timeId = setInterval(() => {
+                    let {opacity} = this.state;
+                    opacity -= 0.1;
+                    if(opacity <= 0) {
+                        opacity = 1;
+                    }
+                    this.setState({opacity})
+                }, 200) */
+
+            }
+
+            // 组件将要挂载
+            componentWillMount() {
+                console.log('-----componentWillMount-----');
+            }
+
+            shouldComponentUpdate() {
+                return true
+            }
+
+            // 组件将要更新
+            componentWillUpdate() {
+                console.log('--componentWillUpdate--');
+            }
+
+            // 组件更新
+            componentDidUpdate() {
+                console.log('--componentDidUpdate--');
+
+            }
+
+            // 一般在componentWillUnmount做一些收尾的工作
+            // 组件将要卸载
+            componentWillUnmount() {
+                console.log('-------componentWillUnmount-------');
+                clearInterval(this.timeId);
+            }
+
+            death = () => {
+                // 卸载节点
+                ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+            }
+
+            demo = () => {
+                this.forceUpdate()
+            }
+
+            render() {
+                console.log('--render--');
+                return (
+                    <div>
+                        <h1 style={{opacity:this.state.opacity}}>学不会React怎么办</h1>   
+                        <button onClick={this.death}>不活了</button>
+                        <button onClick={this.demo}>强制更新</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Life />,document.getElementById('example'));
+    </script>
+</body>
+</html>

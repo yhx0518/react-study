@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin-top: 30px;
+        }
+
+        div span {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>没有防抖的函数</span><input type="text" name="" id="ipt">
+    </div>
+    <div>
+        <span>防抖的函数</span><input type="text" name="" id="ipt1">
+    </div>
+    <div>
+        <span>节流的函数</span><input type="text" name="" id="ipt2">
+    </div>
+    <script>
+        let ipt = document.querySelector('#ipt');
+
+        function ajax(content) {
+            console.log('ajax request' + content);
+        }
+
+        ipt.addEventListener('keyup', function (e) {
+            ajax(e.target.value)
+        });
+
+        function debounce(fun, delay) {
+            return function (args) {
+                let that = this;
+                let _args = args;
+                clearTimeout(fun.id)
+                debugger
+                fun.id = setTimeout(function () {
+                    fun.call(that, _args)
+                }, delay)
+                debugger
+            }
+        }
+
+        let debounceAjax = debounce(ajax, 500)
+
+        let ipt1 = document.getElementById('ipt1');
+        ipt1.addEventListener('keyup', function (e) {
+            debounceAjax(e.target.value);
+        })
+    </script>
+</body>
+
+</html>

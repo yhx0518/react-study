@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入react核心库 -->
+     <script src='../js/react.development.js'></script>
+     <!-- 引入react-dom 用于操作dom -->
+     <script src="../js/react-dom.development.js"></script>
+     <!-- 引入Babel 用于解析JSX为js  -->
+     <script src="../js/babel.min.js"></script>
+     <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+     <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <script type="text/babel">
+        class Person extends React.Component{
+            render() {
+                let {name, age, sex} = this.props
+            console.log(this);
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>    
+                        <li>性别：{sex}</li>    
+                        <li>年龄：{age}</li>    
+                    </ul>
+                )
+            }
+        }
+        // 对传给Person组件的props的类型限制
+        Person.propTypes = {
+            name: PropTypes.string.isRequired, // name名字为字符串类型 且是必要属性
+            age: PropTypes.number, // 限制age为为数字类型
+            sex: PropTypes.string, // 限制sex为字符串类型
+        }
+        Person.defaultProps = {
+            age: 18, // 设置age默认值为18
+            sex: '不男不女',// 设置sex默认值为不男不女
+        }
+
+       /*  function Person({name, age, sex}){
+            console.log({name, age, sex});
+            return (
+                <ul>
+                    <li>姓名：{name}</li>    
+                    <li>性别：{sex}</li>    
+                    <li>年龄：{age}</li>    
+                </ul>
+            )
+        }
+ */
+        // 限制标签传递属性时的：必要性，类型
+
+        ReactDOM.render(<Person name="kobe" age={18} sex="男"/>, document.getElementById('example1'));
+        ReactDOM.render(<Person name="wade" age={42} sex="男"/>, document.getElementById('example2'));
+    </script>
+</body>
+</html>

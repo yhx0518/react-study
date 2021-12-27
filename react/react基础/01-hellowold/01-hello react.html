@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/babel"> // 此处必须改为babel 因为写的是JSX 需要借助Babel翻译
+        // 1. 创建虚拟DOM
+        // <h1> 不是html中的html 但是与html中的<h1>是一一对应的
+        let  vDOM = <h1>Hello React</h1>
+        // 2. 借助react把虚拟DOM渲染到页面上 变为真实DOM
+        ReactDOM.render(vDOM, document.getElementById('test'))
+    </script>
+</body>
+</html>

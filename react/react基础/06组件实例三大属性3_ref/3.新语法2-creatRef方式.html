@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入react核心库 -->
+     <script src='../js/react.development.js'></script>
+     <!-- 引入react-dom 用于操作dom -->
+     <script src="../js/react-dom.development.js"></script>
+     <!-- 引入Babel 用于解析JSX为js  -->
+     <script src="../js/babel.min.js"></script>
+     <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+     <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="exmaple"></div>
+    <script type="text/babel">
+        class MyComponent extends React.Component{
+
+            // 调用 React.creatRef 创建了一个用于保存ref的容器，且该容器是"专人专用"(只能保存一个ref)
+            myRef = React.createRef() // '容器' ---- object类型的js对象
+            myRef2 = React.createRef();
+
+            clickHandel = () => {
+                // alert();
+                console.log(this.myRef.current.value);
+            }
+
+            blurHandel = (e) => {
+                // alert(this.refs.ipt2.value);
+                // console.log(e.target.value);
+                console.log(this.myRef2.current.value);
+            }
+
+            render(){
+                return (
+                    <div>
+                        <input type="text" ref={this.myRef}/>&nbsp;
+                        <button onClick={this.clickHandel}>点我提示数据</button>&nbsp;
+                        <input type="text" placeholder="失去焦点提示" ref={this.myRef2}onBlur={this.blurHandel}/>    
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<MyComponent/>, document.getElementById('exmaple'));
+    </script>
+</body>
+</html>

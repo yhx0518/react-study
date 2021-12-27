@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <!-- 使用js语法创建虚拟DOM -->
+    <script>
+        let myID = 'aTguIgu'; // 定义id
+        let myData = 'HeLlO,WoRld'; // 定义数据
+        
+        // 使用js语法创建虚拟DOM
+        let vDOm = React.createElement('h2', {id: myID.toLowerCase()}, React.createElement('span', {}, myData.toLowerCase()))
+        // 渲染页面
+        ReactDOM.render(vDOm, document.getElementById('test1'))
+    </script>
+
+    <!-- 使用JSX语法创建DOM -->
+    <script type="text/babel">
+        // 使用jsx语法创建虚拟DOM
+        let VDOM = (
+            <div>
+                <h3 id={myID.toUpperCase()}>
+                    <span className="red">
+                        {myData.toLocaleUpperCase()}
+                    </span>
+                 </h3>
+                <h1>hello</h1>    
+            </div>
+            )
+        // 渲染页面
+        ReactDOM.render(VDOM, document.getElementById('test2'))
+
+    </script>
+</body>
+</html>

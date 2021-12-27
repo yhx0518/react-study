@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入react核心库 -->
+     <script src='../js/react.development.js'></script>
+     <!-- 引入react-dom 用于操作dom -->
+     <script src="../js/react-dom.development.js"></script>
+     <!-- 引入Babel 用于解析JSX为js  -->
+     <script src="../js/babel.min.js"></script>
+     <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+     <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        /* 
+            1. 用户名是当表单提交时，获取到的
+            2. 密码是当用户输入密码时，用户没输入一位密码，会自动维护到状态中，当点击提交表单时从状态中获取之前手机号的密码，弹窗演示。
+        */
+        class Login extends React.Component{
+
+            // 初始化状态
+            state = {
+                username: '',
+                password: ''
+            }
+
+            submitHandel = (e) => {
+                // 阻止表单的默认行为
+                e.preventDefault();
+                let {password, username} = this.state;
+                // 弹窗提示用户的输入
+                alert(`准备提交的用户名是：${username}，密码是：${password}`)
+            }
+
+            // 存储表单数据到state
+            saveFormData = (type) => {
+                console.log(type);
+                return (e) => {
+                    this.setState({[type]: e.target.value})
+                }
+            }
+
+
+            render() {
+                return(
+                    <form action="www.baidu.com" onSubmit={this.saveFormData}>
+                        用户名: <input type="text" ref="username" onChange={this.saveFormData('username')}/>
+                        密码: <input type="password" onChange={this.saveFormData('password')} />
+                        <button>提交</button>
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(<Login/>, document.getElementById('example'));
+    </script>
+</body>
+</html>

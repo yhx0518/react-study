@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="radio" name="num" value="1" checked />1
+    <input type="radio" name="num" value="2" />2
+    <input type="radio" name="num" value="3" />3
+    <script>
+        let radios = document.querySelectorAll('input');
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].onchange = function () {
+                console.log(radios[i].value);
+            }
+        }
+
+        //获取选中的值
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked == true) {
+                console.log(radios[i].value + '  是选中的value值');
+                break;
+            }
+        }
+
+        let arr = [1, 2, 3, 4, 5, 6];
+        const result = arr.map((item) => {
+            return item % 2 !== 0;
+        })
+        console.log(result);
+    </script>
+</body>
+
+</html>

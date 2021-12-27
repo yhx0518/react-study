@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入react核心库 -->
+     <script src='../js/react.development.js'></script>
+     <!-- 引入react-dom 用于操作dom -->
+     <script src="../js/react-dom.development.js"></script>
+     <!-- 引入Babel 用于解析JSX为js  -->
+     <script src="../js/babel.min.js"></script>
+     <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+     <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+
+    <script type="text/babel">
+        // App应用组件(最外层组件)
+        class App extends React.Component{
+            state = {
+                todos: ['吃饭', '睡觉', '学习']
+            }
+            addTodo = (data) => {
+                // this.setState({todos:data})
+                // 获取原状态中的todo数组
+                let {todos} = this.state;
+                // 向数组中添加一条状态
+                todos.unshift(data);
+                // 更新状态
+                this.setState({todos})
+            }
+            // 状态在哪个组件里，更新状态的方法就在哪个组件里
+            render() {
+                let {todos} = this.state
+                return (
+                    <div>
+                        <h1>Simple todo list</h1>   
+                        <Add addTodo={this.addTodo} count={todos.length} />
+                        <List todos={todos} /> 
+                    </div>
+                )
+            }
+        }
+
+        // Add组件---用于添加一条数据
+        class Add extends React.Component{
+            // 新传的参数会触发componentWillReceiveProps
+            UNSAFE_componentWillReceiveProps() {
+                console.log('--componentWillReceiveProps--');
+            }
+            add = () => {
+                // 1. 获取用户数据
+                let useript = this.input.value;
+                // 2. 校验数据
+                if(useript.trim() === '') return
+                // 3. 将用户的输入添加到状态里
+                this.props.addTodo(useript);
+                // 4. 清空输入框
+                this.input.value = '';
+            }
+            render() {
+                let {count} = this.props
+                return (
+                    <div>
+                        <input type="text" ref={(input) => (this.input = input)} />
+                        <button onClick={this.add}>Add #{count}</button>    
+                    </div>
+                )
+            }
+        }
+
+        // List组件---用于展示列表
+        class List extends React.Component{
+            render() {
+            let {todos} = this.props
+                return(
+                    <div>
+                        <ul>
+                            {
+                                todos.map((item, index) => <li key= {index}>{item}</li>) 
+                            }    
+                        </ul>    
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('example'))
+    </script>
+</body>
+</html>

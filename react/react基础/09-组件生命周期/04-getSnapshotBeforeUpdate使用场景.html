@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wraper {
+            width: 200px;
+            height: 150px;
+            background-color: orange;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+    <!-- 引入react核心库 -->
+    <script src='../js/17.0.1/react.development.js'></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="../js/17.0.1/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="../js/17.0.1/babel.min.js"></script>
+    <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+    <script src="../js/17.0.1/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        class News extends React.Component {
+
+            /* 
+            1. 初始化阶段: 由ReactDOM.render()触发---初次渲染
+                1.constructor()
+                2.getDerivedStateFromProps 
+                3.render()
+                4.componentDidMount()
+            2. 更新阶段: 由组件内部this.setSate()或父组件重新render触发
+                1.getDerivedStateFromProps
+                2.shouldComponentUpdate()
+                3.render()
+                4.getSnapshotBeforeUpdate
+                5.componentDidUpdate()
+            3. 卸载组件: 由ReactDOM.unmountComponentAtNode()触发
+                1.componentWillUnmount()
+            */
+
+            state = {
+                newsArr: []
+            }
+
+            componentDidMount() {
+                setInterval(() => {
+                    const {newsArr} = this.state
+                    const news = '新闻' + (newsArr.length + 1)
+                    this.setState({newsArr: [news,...newsArr]})
+                }, 1000);
+            }
+
+            getSnapshotBeforeUpdate() {
+                return this.refs.wraper.scrollHeight
+            }
+
+            componentDidUpdate(a,b, preHeight) {
+                this.refs.wraper.scrollTop += this.refs.wraper.scrollHeight - preHeight
+            }
+
+            render() {
+                return (
+                    <div className="wraper" ref="wraper">
+                        {
+                            this.state.newsArr.map((item, index) => {
+                                return <div className="news" key={index}>{item}</div>
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<News />, document.getElementById('example'))
+    </script>
+</body>
+
+</html>

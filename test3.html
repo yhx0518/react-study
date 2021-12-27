@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select id="AreaId" name="AreaId" size="1" class="sel">
+        <option>-请选择地区-</option>
+        <option value="bj">北京</option>
+        <option value="sh">上海</option>
+        <option value="sz">深圳</option>
+    </select>
+    <script>
+        var value = document.getElementById("AreaId").value;//有效，能得到正确的值.
+        console.log(value);
+        var index=document.getElementById("AreaId").selectedIndex;//获取当前选择项的索引.
+        console.log(index);
+        var res = document.getElementById("AreaId").options[index].value;//获取当前选择项的值.
+        console.log(res);
+　      var obj = document.getElementById("AreaId");
+        for(i=0;i < obj.length;i++) {//下拉框的长度就是它的选项数.
+           if(obj[i].selected == true) {
+                var text=obj[i].value;//获取当前选择项的值.
+            }
+　　　　 }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo {
+            cursor: pointer;
+        }
+    </style>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="example1"></div>
+    <div id="emample2"></div>
+
+    <script type="text/babel">
+        // 1. 定义组件--class
+        class Weather extends React.Component {
+            state = {
+                    isHot: false,
+                    haha: 'nice'
+                }
+            constructor (props) {
+                // 构造器里面的this是组件类的实例对象
+                super(props);
+                this.state = {
+                    isHot: false,
+                    haha: 'nice'
+                }
+                this.clickHandel = this.clickHandel.bind(this);
+            }
+            // 我们自己定义的clickHandel 不是重写夫雷里已经存在的clickHandel
+            // 再类组件中，所以我们编码人员自己定义的方法的this都是undefined
+            clickHandel() {
+                let {isHot} = this.state
+                // clickHandel里的this是undefined 因为clickHandel不是通过实例调用的，而是作为点击的回调去使用的，且类中的方法自动开启了严格模式
+                // 组件实例对象的state：1. 不能直接修改 2. 不能直接更新
+                this.setState({isHot: !isHot}) // 此处是一个合并的动作 不是替换
+            }
+            // 重写父类的render
+            render() {
+                // 解构赋值
+                let {isHot} = this.state
+                // render里的this指向的是组件类的实例对象
+                return <h1 className="demo" onClick={this.clickHandel}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>
+            }
+        }
+        
+
+        // 2. 渲染组件标签
+        ReactDOM.render(<Weather />, document.getElementById('example1'))
+    </script>
+</body>
+</html>

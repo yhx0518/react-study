@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入react核心库 -->
+    <script src='../js/17.0.1/react.development.js'></script>
+    <!-- 引入react-dom 用于操作dom -->
+    <script src="../js/17.0.1/react-dom.development.js"></script>
+    <!-- 引入Babel 用于解析JSX为js  -->
+    <script src="../js/17.0.1/babel.min.js"></script>
+    <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+    <script src="../js/17.0.1/prop-types.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        class App extends React.Component{
+            state = {
+                data: 'React'
+            }
+
+            componentDidMount() {
+                console.log(this.props.name);
+                setTimeout(() => {
+                    this.setState({data: 'yhx'})
+                    console.log('--componentDidMount--');
+                }, 2000);
+            }
+
+            componentDidUpdate(porps, state, data) {
+                console.log('--componentDidUpdate--', porps, state, data);
+            }
+
+            // getDerivedStateFromProps钩子用于取代 componentWillUpdate 和 componentWillMount
+            static getDerivedStateFromProps(props, state) {
+                console.log('--getDerivedStateFormProps--', props, state);
+                // return {data: props.name};
+                return props;
+            }
+
+            getSnapshotBeforeUpdate(props, state) {
+                console.log('--getSnapshotBeforeUpdate--', props, state);
+                return 'gyq';
+            }
+
+            render() {
+                console.log('--render--');
+                return (
+                    <div>
+                        <h1>Hello,{this.state.data}</h1>    
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App name="kobe"/>, document.getElementById('example'));
+    </script>
+</body>
+</html> 

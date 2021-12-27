@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #demo {
+            width: 100%;
+            height: 330px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script>
+        /* setTimeout(() => {
+            alert(1);
+        }, 3000); */
+
+        const demo = document.getElementById('demo');
+        demo.addEventListener('touchstart', () => {
+            demo.innerHTML = '开始触摸';
+        });
+
+        demo.addEventListener('touchmove', () => {
+            demo.innerHTML = '开始移动';
+        });
+
+        demo.addEventListener('touchend', () => {
+            demo.innerHTML = '触摸结束';
+        });
+
+        demo.addEventListener('touchcancel', () => {
+            demo.innerHTML = '打断触摸';
+        });
+    </script>
+</body>
+
+</html>

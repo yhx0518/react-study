@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#demo {
+  width: 92vw;
+  height: 40vw;
+  margin: 0 auto;
+  background-color: skyblue;
+}

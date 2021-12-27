@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入react核心库 -->
+     <script src='../js/react.development.js'></script>
+     <!-- 引入react-dom 用于操作dom -->
+     <script src="../js/react-dom.development.js"></script>
+     <!-- 引入Babel 用于解析JSX为js  -->
+     <script src="../js/babel.min.js"></script>
+     <!-- 引入prop-types 用于限制渲染传递标签的属性的：类型、必要性 -->
+     <script src="../js/prop-types.js"></script>
+</head>
+<body>
+    <div id="exmaple"></div>
+    <script type="text/babel">
+        class MyComponent extends React.Component{
+
+            clickHandel = () => {
+                // alert();
+                console.log(this.haha.value);
+            }
+
+            blurHandel = (e) => {
+                // alert(this.refs.ipt2.value);
+                // console.log(e.target.value);
+                console.log(this.ipt2.value);
+            }
+
+            render(){
+                return (
+                    <div>
+                        <input type="text" ref={(peiqi) => {this.haha = peiqi}}/>&nbsp;
+                        <button onClick={this.clickHandel}>点我提示数据</button>&nbsp;
+                        <input type="text" placeholder="失去焦点提示" ref={(input) => this.ipt2 = input} onBlur={this.blurHandel}/>    
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<MyComponent/>, document.getElementById('exmaple'));
+    </script>
+</body>
+</html>
